@@ -6,39 +6,32 @@ int main()
     int n, m;
     cin >> n >> m;
 
-    vector<pair<int,int>> tickets(n,{0,0});
-    vector<int> people(m,0);
-
+    multiset<int> tickets;
     for(int i = 0; i<n; i++)
     {
-        cin >> tickets[i].first;
+        int a;
+        cin>>a;
+        tickets.insert(a);
     }
 
     for(int i = 0; i<m; i++)
     {
-        cin >> people[i];
-    }
+        int customer;
+        cin>>customer;
 
-    
-    for(int i = 0; i<m; i++)
-    {
-        int maxprice = -1;
-        for(int j = 0; j<n; j++)
+        auto it = tickets.upper_bound(customer);
+
+        if(it == tickets.begin())
         {
-            if(tickets[i].first <= people[i] && tickets[i].second != 1)
-            {
-                if(tickets[i].first > maxprice)
-                {
-                    maxprice = tickets[i].first;
-                    tickets[i].second = 1;
-                }  
-            }
+            cout<< -1 << endl;
         }
-
-        cout<<maxprice;   
+        else{
+            it--;
+            cout<< *it << endl;
+            tickets.erase(it);
+        }
+       
     }
 
-    return 0;
-
-
+    return 0; 
 }
